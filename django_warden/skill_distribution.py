@@ -4,6 +4,7 @@ import hashlib
 import json
 import logging
 import os
+import stat
 import tempfile
 from pathlib import Path
 
@@ -22,6 +23,8 @@ def _write_atomic(path: Path, content: bytes) -> None:
     try:
         with temporary:
             temporary.write(content)
+        mode = stat.S_IMODE(path.stat().st_mode) if path.exists() else 0o644
+        os.chmod(temporary.name, mode)
         os.replace(temporary.name, path)
     finally:
         Path(temporary.name).unlink(missing_ok=True)

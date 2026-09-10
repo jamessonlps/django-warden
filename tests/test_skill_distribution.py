@@ -1,6 +1,8 @@
 import json
+import os
 import tempfile
 from pathlib import Path
+from unittest import skipIf
 from unittest.mock import patch
 
 from django.test import SimpleTestCase
@@ -140,6 +142,20 @@ class CompanionSkillTests(SimpleTestCase):
         _write_atomic(link, b"New")
         self.assertTrue(link.is_symlink())
         self.assertEqual(target.read_bytes(), b"New")
+
+    @skipIf(os.name == "nt", "POSIX file modes")
+    def test_atomic_write_preserves_existing_permissions(self):
+        target = self.base / "guide.md"
+        target.write_text("Previous", encoding="utf-8")
+        target.chmod(0o640)
+        _write_atomic(target, b"New")
+        self.assertEqual(target.stat().st_mode & 0o777, 0o640)
+
+    @skipIf(os.name == "nt", "POSIX file modes")
+    def test_new_package_documentation_is_readable_by_other_users(self):
+        target = self.base / "guide.md"
+        _write_atomic(target, b"Public package documentation")
+        self.assertEqual(target.stat().st_mode & 0o777, 0o644)
 
     def test_custom_skills_and_unmanaged_extra_references_are_preserved(self):
         local = self.target / "local-project" / "SKILL.md"

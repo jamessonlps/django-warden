@@ -93,7 +93,8 @@ obsolete references manually during upgrades. Their previous hashes remain recor
 so a later release can safely reintroduce an unchanged file. Missing files still in
 the package are restored. Files are replaced atomically; a failed write is logged
 and bootstrap can be retried after resolving the error. The entire multi-file
-upgrade is not a transaction.
+upgrade is not a transaction. Replacement preserves existing file permissions;
+new public package documentation uses mode 0644 on POSIX systems.
 
 The catalog originates from the published
 [Allia PR #171](https://github.com/maiquelleonel/allia-admin/pull/171), commit
