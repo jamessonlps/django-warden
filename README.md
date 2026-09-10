@@ -100,9 +100,8 @@ The catalog originates from the published
 [Allia PR #171](https://github.com/maiquelleonel/allia-admin/pull/171), commit
 `989e56c127c28461ceeaf7318db028ef7e4329ec`. Allia commands, domain observations,
 task fixtures, assistant settings and symlinks remain consumer-side.
-See [third-party notices](THIRD_PARTY_NOTICES.md) for upstream skill attribution.
-The [extraction record](SKILL_MIGRATION.md) maps every source group and the
-consumer-side material that must be retained before migration.
+Each adapted skill retains its attribution and full license notice in
+`references/upstream-license.md`.
 
 ## 🤖 Global Installation (Optional)
 
