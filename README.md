@@ -96,10 +96,6 @@ and bootstrap can be retried after resolving the error. The entire multi-file
 upgrade is not a transaction. Replacement preserves existing file permissions;
 new public package documentation uses mode 0644 on POSIX systems.
 
-The catalog originates from the published
-[Allia PR #171](https://github.com/maiquelleonel/allia-admin/pull/171), commit
-`989e56c127c28461ceeaf7318db028ef7e4329ec`. Allia commands, domain observations,
-task fixtures, assistant settings and symlinks remain consumer-side.
 Each adapted skill retains its attribution and full license notice in
 `references/upstream-license.md`.
 
